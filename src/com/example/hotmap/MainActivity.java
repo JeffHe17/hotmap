@@ -9,7 +9,11 @@ import org.json.JSONException;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Tile;
+import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.TileProvider;
+
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -68,9 +72,9 @@ public class MainActivity extends Activity {
         super.onResume();
         initilizeMap();
     }
-
+   
     //This heatmap area needs JSON and needs work
-  /*  private void addHeatMap() {
+    private void addHeatMap() {
         List<LatLng> list = null;
 
         // Get the data: latitude/longitude positions of police stations.
@@ -81,11 +85,11 @@ public class MainActivity extends Activity {
         }
 
         // Create a heat map tile provider, passing it the latlngs of the police stations.
-         mProvider = new HeatmapTileProvider.Builder()
+        TileProvider mProvider = new HeatmapTileProvider.Builder()
             .data(list)
             .build();
         // Add a tile overlay to the map, using the heat map tile provider.
-        mOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
-    } */
+        TileOverlay mOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+    } 
     
 }
