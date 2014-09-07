@@ -1,4 +1,4 @@
-package com.example.hotmap;
+package com.example.sketchout;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.sketchout.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -18,6 +19,8 @@ import com.firebase.client.ValueEventListener;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -50,25 +53,17 @@ public class MainActivity extends Activity {
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER); //GPS PROVIDER HAS ISSUES
 
-     	if (location != null){
-     	    longitude = location.getLongitude();
-     	    latitude = location.getLatitude();
-     		 Toast.makeText(getApplicationContext(),
-     				 
-             lm.toString() + " NOT NULL " + longitude + " " + latitude, Toast.LENGTH_LONG).show();
+     	longitude = location.getLongitude();
+     	latitude = location.getLatitude();       
+     	LatLng position = new LatLng(latitude, longitude);
      	
-     	   String locLat = String.valueOf(latitude)+","+String.valueOf(longitude);
-     	} else {
-     		Toast.makeText(getApplicationContext(),
-                    " NULLLL BITCHES", Toast.LENGTH_LONG).show();
-     	}
-        
-         
         // create marker
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Jeff");
+        MarkerOptions marker = new MarkerOptions().position(position).title("You");
          
         // adding marker
         googleMap.addMarker(marker);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
     
     /**
